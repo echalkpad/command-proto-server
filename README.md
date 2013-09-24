@@ -1,4 +1,5 @@
 ### Protocol buffer polymorphism java demo
+这个项目是这篇文章http://www.indelible.org/ink/protobuf-polymorphism/对应的java实现
 
 在netty中使用protobuf的时候，由于netty的ProtobufDecoder中只能传递一种MessageLite的instance,导致netty server在初始化pipeline后
 只能解析一种protobuf的message格式，比如：
@@ -37,8 +38,10 @@ message Message {
 ```
 protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
    switch(message.getType()) {
-       case HEARTBEAT : break;
-       case LOGIN : break;
+       case HEARTBEAT : message.getHeartbeat(); break;
+       case LOGIN : message.getLogin(); break;
    }            
 } 
 ```
+
+
