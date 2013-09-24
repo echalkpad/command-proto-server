@@ -9,25 +9,36 @@ new ServerBootstrap()..childHandler(new ChannelInitializer<SocketChannel>() {
 
 ```
 
-解决的办法有
-
-### Union Type
-直接使用protobuf的union type来解决
+一般的解决办法是使用一个消息体里定义可选optional字段来一一对应不同的消息体内容，这种方法在protobuf里被称为Union Types
+https://developers.google.com/protocol-buffers/docs/techniques?hl=zh-CN#union
 ```
+enum CommandType {
+   HEARTBEAT = 1;
+   LOGIN = 2;
+}
 message Heartbeat {
    
 }
 message Login {
-   optional string username;
-   optional string password;
+   optional string username = 1;
+   optional string password = 2;
 }
 
 message Message {
-   optional Heartbeat heartbeat;
-   optional Login login;
+   required CommandType type = 1;
+   optional Heartbeat heartbeat = 2;
+   optional Login login = 3;
    ....
 
 }
 
 ```
-
+服务端解析的代码
+```
+protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
+   switch(message.getType()) {
+       case HEARTBEAT : break;
+       case LOGIN : break;
+   }            
+} 
+```
