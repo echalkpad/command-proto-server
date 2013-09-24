@@ -1,5 +1,6 @@
 ### Protocol buffer polymorphism java demo
-这个项目是这篇文章http://www.indelible.org/ink/protobuf-polymorphism/对应的java实现
+这个项目是这篇文章http://www.indelible.org/ink/protobuf-polymorphism/
+对应的java实现
 
 在netty中使用protobuf的时候，由于netty的ProtobufDecoder中只能传递一种MessageLite的instance,导致netty server在初始化pipeline后
 只能解析一种protobuf的message格式，比如：
@@ -44,4 +45,8 @@ protected void channelRead0(ChannelHandlerContext ctx, Message message) throws E
 } 
 ```
 
+Union Types的问题在于当command type很多的时候，就显得过于笨拙，而且所有的消息都作为一个optional字段定义在一个大消息体内，protobuf在解析的
+时候会尝试每种可能性。
+
+google官方在针对大量type解析的时候给出的解决方案也是extensions
 
