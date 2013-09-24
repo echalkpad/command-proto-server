@@ -1,0 +1,52 @@
+package sync;
+
+option java_package = "com.linkage.message.protoc";
+option java_outer_classname = "Commands";
+
+
+
+message Command {
+    enum CommandType {
+        HEARTBEAT = 1;
+        LOGIN_REQ = 2;
+        LOGIN_RESP = 3;
+        IQ_REQ = 4;
+        IQ_RESP = 5;
+        MESSAGE = 6;
+        MESSAGE_ACK = 7;
+        PRESENCE = 8;
+    }
+
+    extensions 100 to max;
+    required CommandType type = 1;
+    optional int32 id = 2;
+}
+
+message Heartbeat {
+    extend Command {
+        required Heartbeat cmd = 101;
+    }
+}
+
+message LoginRequest {
+    extend Command {
+        required LoginRequest cmd = 102;
+    }
+    optional string token = 1;
+    optional string username = 2;
+    optional string password = 3;
+}
+
+message LoginResponse {
+    extend Command {
+        required LoginResponse cmd = 103;
+    }
+    optional int32 code = 1;
+    optional string reason = 2;
+}
+
+
+
+
+
+
