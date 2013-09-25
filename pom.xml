@@ -20,25 +20,7 @@
 
     <build>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>build-helper-maven-plugin</artifactId>-->
-                <!--<version>1.5</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>add-source</id>-->
-                        <!--<phase>generate-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>add-source</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<sources>-->
-                                <!--<source>target/generated-sources</source>-->
-                            <!--</sources>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -47,7 +29,6 @@
 
                         <configuration>
                             <tasks>
-                                <!--<mkdir dir="target/generated-sources"/>-->
                                 <path id="proto.path">
                                     <fileset dir="${protoc.includedir}">
                                         <include name="*.proto"/>
